@@ -8,10 +8,9 @@ import org.junit.jupiter.api.Test;
 import helpers.Attach;
 import static io.qameta.allure.Allure.step;
 
-@Tag("practice-form")
+@Tag("demoqa")
 public class PracticeFormWithPagesObjectsTest extends TestBase {
     PracticeFormPages practiceFormPages = new PracticeFormPages();
-    Attach attach = new Attach();
 
     String userName = "Olga";
     String lastName = "Palushina";
