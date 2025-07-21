@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.Tag;
 import pages.components.CalendarComponent;
 import pages.components.RegistrationResultsModal;
 
@@ -8,6 +9,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 
+@Tag("demoqa_test")
 public class PracticeFormPages {
 
     CalendarComponent calendarComponent = new CalendarComponent();
