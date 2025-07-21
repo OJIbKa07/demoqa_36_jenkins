@@ -1,21 +1,17 @@
 package tests;
 
-import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-
-import static com.codeborne.selenide.Selenide.webdriver;
-import static io.qameta.allure.Allure.attachment;
+import helpers.Attach;
 import static io.qameta.allure.Allure.step;
 
 @Tag("practice-form")
 public class PracticeFormWithPagesObjectsTest extends TestBase {
     PracticeFormPages practiceFormPages = new PracticeFormPages();
+    Attach attach = new Attach();
 
     String userName = "Olga";
     String lastName = "Palushina";
@@ -29,9 +25,13 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
     String address= "123 Main St.";
     String[] stateAndCity  = new String[] {"NCR", "Delhi"};
 
-    @Attachment(value = "Screenshot", type = "image/png", fileExtension = "png")
-    public byte[] takeScreenshot() {
-        return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+    @AfterEach
+    void addAttachments() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
+
     }
 
     @Test
@@ -40,7 +40,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
 
         step("Открываем форму", () -> {
             practiceFormPages.openPage();
-            takeScreenshot();
         });
         step("Заполняем форму полностью и отправляем", () -> {
             practiceFormPages.removeAds()
@@ -56,7 +55,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
                     .setAddress(address)
                     .selectStateAndCity(stateAndCity[0], stateAndCity[1])
                     .submitForm();
-            takeScreenshot();
         });
 
         step("Проверяем окно с результатами", () -> {
@@ -71,7 +69,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
                     .verifyResult("Picture", uploadFile)
                     .verifyResult("Address", address)
                     .verifyResult("State and City", stateAndCity[0] + " " + stateAndCity[1]);
-            takeScreenshot();
         });
     }
 
@@ -81,7 +78,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
 
         step("Открываем форму", () -> {
             practiceFormPages.openPage();
-            takeScreenshot();
         });
 
         step("Заполняем обязательные поля формы и отправляем", () -> {
@@ -91,7 +87,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
                 .setGender(gender)
                 .setNumber(phoneNumber)
                 .submitForm();
-            takeScreenshot();
         });
 
         step("Проверяем окно с результатами", () -> {
@@ -99,7 +94,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
                 .verifyResult("Student Name", userName + " " + lastName)
                 .verifyResult("Gender", gender)
                 .verifyResult("Mobile", phoneNumber);
-            takeScreenshot();
         });
     }
 
@@ -109,7 +103,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
 
         step("Открываем форму", () -> {
             practiceFormPages.openPage();
-            takeScreenshot();
         });
 
         step("Не заполняем все обязательные поля формы и отправляем", () -> {
@@ -120,12 +113,10 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
                 .setGender(gender)
                 .setNumber("")
                 .submitForm();
-            takeScreenshot();
         });
 
         step("Проверяем окно с результатами", () -> {
         practiceFormPages.verifyResultsModalAppearsNeg();
-            takeScreenshot();
         });
     }
 }
