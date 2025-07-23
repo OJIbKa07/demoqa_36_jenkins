@@ -30,7 +30,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
-
     }
 
     @Test
