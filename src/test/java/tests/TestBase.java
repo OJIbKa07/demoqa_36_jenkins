@@ -18,11 +18,5 @@ public class TestBase {
         Configuration.browser =  System.getProperty ("browser","chrome");
         Configuration.browserVersion =  System.getProperty("browser_version");
         Configuration.remote = "https://user1:1234@" + System.getProperty("selenoid_url","selenoid.autotests.cloud/wd/hub");
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                "enableVNC", true,
-                "enableVideo", true
-        ));
-        Configuration.browserCapabilities = capabilities;
     }
 }
