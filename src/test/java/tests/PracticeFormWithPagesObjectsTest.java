@@ -42,25 +42,11 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
 
     @BeforeEach
     void addListener() {
-        Configuration.browserSize = System.getProperty("browser_size", "1920x1080");
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.browser =  System.getProperty ("browser","chrome");
-        Configuration.browserVersion =  System.getProperty("browser_version", "127.0");
-        Configuration.remote = "https://user1:1234@" + System.getProperty("selenoid_url","selenoid.autotests.cloud/wd/hub");
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                "enableVNC", true,
-                "enableVideo", true
-        ));
-        Configuration.browserCapabilities = capabilities;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
     @Test
     void successfulPracticeFormTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-
         step("Открываем форму", () -> {
             practiceFormPages.openPage();
         });
@@ -97,8 +83,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
 
     @Test
     void successfulMinFormTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-
         step("Открываем форму", () -> {
             practiceFormPages.openPage();
         });
@@ -122,8 +106,6 @@ public class PracticeFormWithPagesObjectsTest extends TestBase {
 
     @Test
     void negativeMinFormTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-
         step("Открываем форму", () -> {
             practiceFormPages.openPage();
         });
